@@ -51,18 +51,17 @@ cookieNotice.style.width = '120%';
 cookieNotice.style.height =
   Number.parseFloat(getComputedStyle(cookieNotice).height) + 30 + 'px';
 
-document.documentElement.style.setProperty('--color-primary', 'orangered');
+const btnScrollTo = document.querySelector('.btn--scroll-to');
+const section1 = document.querySelector('#section--1');
 
-// attributes
-const logo = document.querySelector('.nav__logo');
-console.log(logo.alt);
-console.log(logo.src);
-console.log(logo.getAttribute('src'));
+btnScrollTo.addEventListener('click', function (e) {
+  const s1coords = section1.getBoundingClientRect();
+  // scroll to
+  // window.scrollTo({
+  //   left: s1coords.left + scrollX,
+  //   top: s1coords.top + scrollY,
+  //   behaviour: 'smooth',
+  // });
 
-logo.alt = 'beautiful wisest logo';
-
-// data attributes
-console.log(logo.dataset.versionNumber);
-
-// classes
-logo.classList.add('_');
+  section1.scrollIntoView({ behavior: 'smooth' });
+});
