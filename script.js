@@ -58,13 +58,24 @@ cookieNotice.style.height =
   Number.parseFloat(getComputedStyle(cookieNotice).height) + 30 + 'px';
 
 // Page navigation
-document.querySelectorAll('.nav__link').forEach(el => {
-  el.addEventListener('click', function (e) {
-    const id = this.getAttribute('href');
+// document.querySelectorAll('.nav__link').forEach(el => {
+//   el.addEventListener('click', function (e) {
+//     const id = this.getAttribute('href');
+//     console.log(id);
+//     document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
+//     e.preventDefault();
+//   });
+// });
+document.querySelector('.nav__links').addEventListener('click', function (e) {
+  console.log(e.target);
+  // matching strategy
+  if (e.target.classList.contains('nav__link')) {
+    e.preventDefault();
+    const id = e.target.getAttribute('href');
     console.log(id);
     document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
-    e.preventDefault();
-  });
+    console.log('Link');
+  }
 });
 //////////////////////////////////////////////////////////////////////////////////
 
