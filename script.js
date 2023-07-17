@@ -104,6 +104,24 @@ tabsContainer.addEventListener('click', function (e) {
   }
 });
 
+// menu fade animation
+const navLinks = document.querySelector('.nav__links');
+navLinks.addEventListener('mouseover', function (e) {
+  if (e.target.classList.contains('nav__link')) {
+    const link = e.target;
+    document.querySelectorAll('.nav__item').forEach(oneLink => {
+      oneLink.style.opacity = '0.5';
+      e.target.closest('.nav__item').style.opacity = '1';
+    });
+  }
+});
+
+navLinks.addEventListener('mouseout', function (e) {
+  document.querySelectorAll('.nav__item').forEach(oneLink => {
+    oneLink.style.opacity = '1';
+  });
+});
+
 //////////////////////////////////////////////////////////////////////////////////
 
 // create and insert elements
