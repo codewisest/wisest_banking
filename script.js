@@ -121,6 +121,18 @@ navLinks.addEventListener('mouseout', function (e) {
   });
 });
 
+// sticky navigation
+// scroll event
+const nav = document.querySelector('.nav');
+const initialCoords = section1.getBoundingClientRect();
+window.addEventListener('scroll', function () {
+  console.log(initialCoords.top);
+  if (this.scrollY > initialCoords.top) {
+    nav.classList.add('sticky');
+  } else {
+    nav.classList.remove('sticky');
+  }
+});
 //////////////////////////////////////////////////////////////////////////////////
 
 // create and insert elements
