@@ -121,17 +121,64 @@ navLinks.addEventListener('mouseout', function (e) {
   });
 });
 
-// sticky navigation
-// scroll event
+// sticky navigation: scroll event
+// const nav = document.querySelector('.nav');
+// const initialCoords = section1.getBoundingClientRect();
+// window.addEventListener('scroll', function () {
+//   console.log(initialCoords.top);
+//   if (this.scrollY > initialCoords.top) {
+//     nav.classList.add('sticky');
+//   } else {
+//     nav.classList.remove('sticky');
+//   }
+// });
+
+// sticky navigation: intersection observer API
+// const observerCallback = function (entries, observer) {
+//   entries.forEach(entry => {
+//     console.log(entry);
+//   });
+// };
+// const observerOptions = {
+//   root: null,
+//   threshold: [0, 0.2],
+// };
+// const observer = new IntersectionObserver(observerCallback, observerOptions);
+// observer.observe(section1);
 const nav = document.querySelector('.nav');
-const initialCoords = section1.getBoundingClientRect();
-window.addEventListener('scroll', function () {
-  console.log(initialCoords.top);
-  if (this.scrollY > initialCoords.top) {
+const navigationHeight = nav.getBoundingClientRect().height;
+const stickyNav = function (entries) {
+  const [entry] = entries;
+  if (!entry.isIntersecting) {
     nav.classList.add('sticky');
   } else {
     nav.classList.remove('sticky');
   }
+};
+const headerObserver = new IntersectionObserver(stickyNav, {
+  root: null,
+  threshold: 0,
+  rootMargin: `-${navigationHeight}px`,
+});
+headerObserver.observe(header);
+
+// reveal sections
+const allSections = document.querySelectorAll('.section');
+const revealSection = function (entries, observer) {
+  const [entry] = entries;
+
+  if (!entry.isIntersecting) return;
+  entry.target.classList.remove('section--hidden');
+  observer.unobserve(entry.target);
+};
+const sectionObserver = new IntersectionObserver(revealSection, {
+  root: null,
+  threshold: 0.15,
+});
+
+allSections.forEach(function (section) {
+  section.classList.add('section--hidden');
+  sectionObserver.observe(section);
 });
 //////////////////////////////////////////////////////////////////////////////////
 
