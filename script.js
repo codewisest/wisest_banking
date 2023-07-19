@@ -223,17 +223,7 @@ const goToSlide = function () {
   });
 };
 
-btnRight.addEventListener('click', function () {
-  console.log(maxSlide, currentSlide);
-  if (currentSlide === maxSlide) {
-    currentSlide = 0;
-  } else {
-    currentSlide++;
-  }
-  goToSlide();
-});
-
-btnLeft.addEventListener('click', function () {
+const prevSlide = function () {
   if (currentSlide === 0) {
     currentSlide = maxSlide;
   } else {
@@ -241,7 +231,20 @@ btnLeft.addEventListener('click', function () {
   }
 
   goToSlide();
-});
+};
+
+const nextSlide = function () {
+  if (currentSlide === maxSlide) {
+    currentSlide = 0;
+  } else {
+    currentSlide++;
+  }
+  goToSlide();
+};
+
+btnRight.addEventListener('click', nextSlide);
+
+btnLeft.addEventListener('click', prevSlide);
 //////////////////////////////////////////////////////////////////////////////////
 
 // create and insert elements
