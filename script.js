@@ -203,6 +203,45 @@ const imgObserver = new IntersectionObserver(loadImg, {
 });
 
 imgLazy.forEach(img => imgObserver.observe(img));
+
+// Slider
+const slides = document.querySelectorAll('.slide');
+slides.forEach((slide, i) => {
+  slide.style.transform = `translateX(${100 * i}%)`;
+});
+
+const btnLeft = document.querySelector('.slider__btn--left');
+const btnRight = document.querySelector('.slider__btn--right');
+
+// next slide
+let currentSlide = 0;
+const maxSlide = slides.length - 1;
+
+const goToSlide = function () {
+  slides.forEach((slide, i) => {
+    slide.style.transform = `translateX(${100 * (i - currentSlide)}%)`;
+  });
+};
+
+btnRight.addEventListener('click', function () {
+  console.log(maxSlide, currentSlide);
+  if (currentSlide === maxSlide) {
+    currentSlide = 0;
+  } else {
+    currentSlide++;
+  }
+  goToSlide();
+});
+
+btnLeft.addEventListener('click', function () {
+  if (currentSlide === 0) {
+    currentSlide = maxSlide;
+  } else {
+    currentSlide--;
+  }
+
+  goToSlide();
+});
 //////////////////////////////////////////////////////////////////////////////////
 
 // create and insert elements
