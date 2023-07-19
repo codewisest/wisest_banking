@@ -245,6 +245,12 @@ const nextSlide = function () {
 btnRight.addEventListener('click', nextSlide);
 
 btnLeft.addEventListener('click', prevSlide);
+
+// slide with arrow keys
+document.addEventListener('keydown', function (e) {
+  if (e.key === 'ArrowLeft') prevSlide();
+  if (e.key === 'ArrowRight') nextSlide();
+});
 //////////////////////////////////////////////////////////////////////////////////
 
 // create and insert elements
