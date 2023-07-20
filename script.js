@@ -212,10 +212,33 @@ slides.forEach((slide, i) => {
 
 const btnLeft = document.querySelector('.slider__btn--left');
 const btnRight = document.querySelector('.slider__btn--right');
+const dotContainer = document.querySelector('.dots');
 
-// next slide
+// slide
 let currentSlide = 0;
 const maxSlide = slides.length - 1;
+
+const createDots = function () {
+  slides.forEach(function (_, i) {
+    dotContainer.insertAdjacentHTML(
+      'beforeend',
+      `<button class="dots__dot" data-slide="${i}"></button>`
+    );
+  });
+};
+createDots();
+
+const activateDot = function (slideOfMoment) {
+  const dotsDot = document.querySelectorAll('.dots__dot');
+  dotsDot.forEach(function (dot, i) {
+    dot.classList.remove('dots__dot--active');
+    if (i === slideOfMoment) {
+      dot.classList.add('dots__dot--active');
+      currentSlide = slideOfMoment;
+    }
+  });
+};
+activateDot(0);
 
 const goToSlide = function (slideNumber) {
   slides.forEach((slide, i) => {
@@ -231,6 +254,7 @@ const prevSlide = function () {
   }
 
   goToSlide(currentSlide);
+  activateDot(currentSlide);
 };
 
 const nextSlide = function () {
@@ -240,6 +264,7 @@ const nextSlide = function () {
     currentSlide++;
   }
   goToSlide(currentSlide);
+  activateDot(currentSlide);
 };
 
 btnRight.addEventListener('click', nextSlide);
@@ -250,6 +275,15 @@ btnLeft.addEventListener('click', prevSlide);
 document.addEventListener('keydown', function (e) {
   if (e.key === 'ArrowLeft') prevSlide();
   if (e.key === 'ArrowRight') nextSlide();
+});
+
+dotContainer.addEventListener('click', function (e) {
+  if (e.target.classList.contains('dots__dot')) {
+    console.log(e);
+    const slide = e.target.dataset.slide;
+    goToSlide(slide);
+    activateDot(Number(slide));
+  }
 });
 //////////////////////////////////////////////////////////////////////////////////
 
